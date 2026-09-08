@@ -1,0 +1,56 @@
+:root {
+  --bg: #0a0e12;
+  --panel: #121a20;
+  --border: #1f2e33;
+  --teal: #5eead4;
+  --teal-dim: #2a5f58;
+  --amber: #f0b429;
+  --text: #c8d3d5;
+  --text-dim: #7a8a8d;
+  --green: #5dcaa5;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: "Space Grotesk", ui-sans-serif, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+a {
+  color: var(--teal);
+}
+
+::selection {
+  background: var(--teal-dim);
+  color: var(--bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 640px) {
+  #root {
+    padding: 0 16px 60px;
+  }
+}
