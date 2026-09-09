@@ -1,88 +1,52 @@
-import { useEffect, useState } from "react";
-import { profile } from "../data/resume";
-
-const LINES = [
-  { prompt: "> whoami", after: profile.name },
-  { prompt: "> cat title.txt", after: profile.title },
-];
+import { profile, stats } from "../data/resume";
 
 export default function Hero() {
-  const [visibleLines, setVisibleLines] = useState(0);
-  const [showSummary, setShowSummary] = useState(false);
-
-  useEffect(() => {
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (reduceMotion) {
-      setVisibleLines(LINES.length);
-      setShowSummary(true);
-      return;
-    }
-
-    let index = 0;
-    const interval = setInterval(() => {
-      index += 1;
-      setVisibleLines(index);
-      if (index >= LINES.length) {
-        clearInterval(interval);
-        setTimeout(() => setShowSummary(true), 300);
-      }
-    }, 550);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <section style={{ paddingTop: "48px", paddingBottom: "8px" }}>
-      <div style={{ fontFamily: "var(--font-mono)", fontSize: "13px" }}>
-        {LINES.slice(0, visibleLines).map((line, i) => (
-          <div key={i} style={{ marginBottom: "6px" }}>
-            <div style={{ color: "var(--teal)" }}>{line.prompt}</div>
-            <div
-              style={{
-                color: i === 0 ? "var(--text)" : "var(--text-dim)",
-                fontSize: i === 0 ? "22px" : "14px",
-                fontFamily: i === 0 ? "var(--font-sans)" : "var(--font-mono)",
-                margin: "2px 0 10px",
-              }}
-            >
-              {line.after}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {showSummary && (
-        <p
-          style={{
-            fontSize: "15px",
-            lineHeight: 1.7,
-            color: "var(--text)",
-            maxWidth: "62ch",
-            margin: "12px 0 0",
-          }}
-        >
-          {profile.summary}
+    <section className="hero">
+      <div className="hero-content">
+        <h1 className="hero-name">{profile.shortName}</h1>
+        <p className="hero-role">{profile.title}</p>
+        <p className="hero-bio">{profile.tagline}</p>
+        <p className="hero-honor">
+          <strong>{stats.achievements[0].split(" — ")[0]}</strong>
+          {" — " + stats.achievements[0].split(" — ")[1]}
         </p>
-      )}
-
-      {showSummary && (
-        <div
-          style={{
-            marginTop: "20px",
-            fontFamily: "var(--font-mono)",
-            fontSize: "13px",
-            color: "var(--text-dim)",
-          }}
-        >
-          <a href={`mailto:${profile.email}`} style={{ marginRight: "16px" }}>
-            {profile.email}
-          </a>
+        <div className="hero-meta">
+          <a href={`mailto:${profile.email}`}>{profile.email}</a>
           <span>{profile.location}</span>
         </div>
-      )}
+      </div>
+
+      <div className="hero-graphic">
+        <svg viewBox="0 0 400 340" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#E8A33D" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="#E8A33D" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+
+          <line className="grid-line" x1="0" y1="60" x2="400" y2="60" />
+          <line className="grid-line" x1="0" y1="140" x2="400" y2="140" />
+          <line className="grid-line" x1="0" y1="220" x2="400" y2="220" />
+          <line className="grid-line" x1="0" y1="300" x2="400" y2="300" />
+
+          <path
+            className="chart-fill"
+            d="M20,260 C80,240 100,200 150,190 C200,180 220,120 270,100 C310,85 340,95 380,50 L380,300 L20,300 Z"
+          />
+          <path
+            className="chart-line"
+            d="M20,260 C80,240 100,200 150,190 C200,180 220,120 270,100 C310,85 340,95 380,50"
+          />
+
+          <circle className="chart-dot" cx="20" cy="260" r="5" />
+          <circle className="chart-dot" cx="150" cy="190" r="5" />
+          <circle className="chart-dot" cx="270" cy="100" r="5" />
+          <circle className="chart-dot" cx="340" cy="95" r="5" />
+          <circle className="chart-dot" cx="380" cy="50" r="5" />
+        </svg>
+      </div>
     </section>
   );
 }

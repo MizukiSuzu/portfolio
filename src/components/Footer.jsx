@@ -7,13 +7,14 @@ export default function Footer() {
         marginTop: "48px",
         paddingTop: "20px",
         borderTop: "1px solid var(--border)",
-        fontFamily: "var(--font-mono)",
-        fontSize: "12px",
+        fontFamily: "var(--font-sans)",
+        fontSize: "0.85rem",
         color: "var(--text-dim)",
         display: "flex",
         justifyContent: "space-between",
         flexWrap: "wrap",
         gap: "8px",
+        paddingBottom: "2rem",
       }}
     >
       <span>&copy; {new Date().getFullYear()} {profile.name}</span>

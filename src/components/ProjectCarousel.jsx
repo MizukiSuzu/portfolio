@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { projects } from "../data/resume";
-import { STATUS_COLOR } from "../data/statusColor";
+import { PROJ_COLOR, STATUS_COLOR } from "../data/statusColor";
 import ProjectModal from "./ProjectModal";
 
 const OPACITY_THRESHOLD = 0.05; // fade curve is front-loaded, so "invisible" arrives well before transition end
 const CARD_TRANSITION =
-  "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease";
+  "transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease";
 
 function circularOffset(i, active, count) {
   let diff = i - active;
@@ -36,18 +36,18 @@ export default function ProjectCarousel() {
     const offset = posRef.current[i];
     const absOff = Math.abs(offset);
 
-    const scale = offset === 0 ? 1.1 : absOff === 1 ? 0.8 : 0.62;
-    const xShift = offset * 158;
-    const rotate = offset * -18;
-    const zShift = -absOff * 70;
-    const opacity = absOff > 2 ? 0 : offset === 0 ? 1 : absOff === 1 ? 0.65 : 0.3;
+    const scale = offset === 0 ? 1.15 : absOff === 1 ? 0.82 : 0.62;
+    const xShift = offset * 190;
+    const rotate = offset * -22;
+    const zShift = -absOff * 90;
+    const opacity = absOff > 2 ? 0 : offset === 0 ? 1 : absOff === 1 ? 0.75 : 0.4;
     const z = 10 - absOff;
 
-    card.style.transform = `translate(-50%, -50%) translateX(${xShift}px) translateZ(${zShift}px) rotateY(${rotate}deg) scale(${scale})`;
+    card.style.transform = "translate(-50%, -50%) translateX(" + xShift + "px) translateZ(" + zShift + "px) rotateY(" + rotate + "deg) scale(" + scale + ")";
     card.style.opacity = opacity;
     card.style.zIndex = z;
     card.style.pointerEvents = absOff > 2 ? "none" : "auto";
-    card.style.borderColor = offset === 0 ? "var(--accent)" : "var(--border)";
+    card.style.boxShadow = offset === 0 ? "0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px var(--accent)" : "none";
     card.dataset.center = offset === 0 ? "true" : "false";
 
     return absOff;
@@ -154,48 +154,46 @@ export default function ProjectCarousel() {
     }
   };
 
+  const arrowStyle = {
+    position: "absolute",
+    top: "50%",
+    transform: "translateY(-50%)",
+    zIndex: 20,
+    width: "42px",
+    height: "42px",
+    borderRadius: "50%",
+    background: "var(--panel)",
+    border: "1px solid var(--border)",
+    color: "var(--text)",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
   return (
     <div style={{ marginTop: "8px" }}>
       <div
         style={{
           position: "relative",
-          height: "300px",
-          perspective: "1200px",
+          height: "420px",
+          perspective: "1400px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           overflow: "hidden",
         }}
       >
-        <button
-          onClick={goPrev}
-          aria-label="Previous project"
-          style={{
-            position: "absolute",
-            left: 0,
-            top: "50%",
-            transform: "translateY(-50%)",
-            zIndex: 20,
-            width: "30px",
-            height: "30px",
-            borderRadius: "50%",
-            background: "var(--panel)",
-            border: "1px solid var(--border)",
-            color: "var(--text-dim)",
-            fontFamily: "var(--font-mono)",
-            fontSize: "14px",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          &lsaquo;
+        <button onClick={goPrev} aria-label="Previous project" style={{ ...arrowStyle, left: "0.5rem" }}>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
         </button>
 
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
           {projects.map((p, i) => {
-            const accent = STATUS_COLOR[p.status] || "var(--teal)";
+            const accent = PROJ_COLOR[p.id] || "var(--teal)";
+            const statusColor = STATUS_COLOR[p.status] || accent;
             const isCenter = activeIndex === i;
 
             return (
@@ -208,139 +206,141 @@ export default function ProjectCarousel() {
                   position: "absolute",
                   left: "50%",
                   top: "50%",
-                  width: "220px",
+                  width: "260px",
                   background: "var(--panel)",
                   border: "1px solid var(--border)",
-                  borderRadius: "6px",
-                  padding: "12px 14px",
-                  cursor: "pointer",
-                  boxShadow: isCenter ? "0 14px 30px rgba(0,0,0,0.35)" : "none",
+                  borderRadius: "10px",
+                  overflow: "hidden",
+                  cursor: isCenter ? "default" : "pointer",
                 }}
               >
                 <div
                   style={{
+                    height: "84px",
+                    background: "linear-gradient(135deg, " + accent + ", transparent)",
+                    backgroundColor: "rgba(255,255,255,0.03)",
+                    position: "relative",
                     display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: "8px",
+                    alignItems: "flex-end",
+                    padding: "0.85rem 1rem",
                   }}
                 >
-                  <span
+                  {p.featured && (
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: "0.65rem",
+                        right: "0.8rem",
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "0.68rem",
+                        background: accent,
+                        color: "#0a0e12",
+                        padding: "0.18rem 0.5rem",
+                        borderRadius: "4px",
+                        fontWeight: 600,
+                      }}
+                    >
+                      Featured
+                    </span>
+                  )}
+                  <p
                     style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "13px",
+                      fontFamily: "'Fraunces', serif",
+                      fontWeight: 500,
+                      fontSize: "1.1rem",
                       color: "var(--text)",
+                      margin: 0,
                     }}
                   >
                     {p.name}
-                  </span>
-                  <span
+                  </p>
+                </div>
+
+                <div style={{ padding: "1rem" }}>
+                  <p
                     style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "10px",
-                      color: accent,
+                      fontFamily: "'Work Sans', sans-serif",
+                      fontSize: "0.76rem",
+                      color: statusColor,
+                      margin: "0 0 0.5rem",
+                      fontWeight: 500,
+                      textTransform: "capitalize",
                     }}
                   >
                     {p.status}
-                  </span>
-                </div>
+                  </p>
 
-                <p
-                  style={{
-                    fontSize: "12px",
-                    lineHeight: 1.5,
-                    color: "var(--text-dim)",
-                    margin: "0 0 8px",
-                    maxHeight: isCenter ? "80px" : "0",
-                    opacity: isCenter ? 1 : 0,
-                    overflow: "hidden",
-                    transition: "max-height 0.35s ease, opacity 0.3s ease",
-                  }}
-                >
-                  {p.summary}
-                </p>
+                  <p
+                    style={{
+                      fontFamily: "'Work Sans', sans-serif",
+                      fontSize: "0.87rem",
+                      lineHeight: 1.5,
+                      color: "var(--text-dim)",
+                      margin: "0 0 0.85rem",
+                      maxHeight: isCenter ? "160px" : "0",
+                      opacity: isCenter ? 1 : 0,
+                      overflow: "hidden",
+                      transition: "max-height 0.4s ease, opacity 0.3s ease",
+                    }}
+                  >
+                    {p.summary}
+                  </p>
 
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "5px",
-                    maxHeight: isCenter ? "60px" : "0",
-                    opacity: isCenter ? 1 : 0,
-                    overflow: "hidden",
-                    transition: "max-height 0.35s ease, opacity 0.3s ease",
-                  }}
-                >
-                  {p.stack.slice(0, 4).map((t) => (
-                    <span
-                      key={t}
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        fontSize: "10px",
-                        color: "var(--teal)",
-                        border: "1px solid var(--border)",
-                        borderRadius: "3px",
-                        padding: "2px 6px",
-                      }}
-                    >
-                      {t}
-                    </span>
-                  ))}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "0.35rem",
+                      maxHeight: isCenter ? "80px" : "0",
+                      opacity: isCenter ? 1 : 0,
+                      overflow: "hidden",
+                      transition: "max-height 0.4s ease, opacity 0.3s ease",
+                    }}
+                  >
+                    {p.stack.slice(0, 4).map((t) => (
+                      <span
+                        key={t}
+                        style={{
+                          fontFamily: "'Work Sans', sans-serif",
+                          fontSize: "0.73rem",
+                          color: "var(--text-dim)",
+                          background: "rgba(255,255,255,0.05)",
+                          padding: "0.2rem 0.45rem",
+                          borderRadius: "4px",
+                        }}
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             );
           })}
         </div>
 
-        <button
-          onClick={goNext}
-          aria-label="Next project"
-          style={{
-            position: "absolute",
-            right: 0,
-            top: "50%",
-            transform: "translateY(-50%)",
-            zIndex: 20,
-            width: "30px",
-            height: "30px",
-            borderRadius: "50%",
-            background: "var(--panel)",
-            border: "1px solid var(--border)",
-            color: "var(--text-dim)",
-            fontFamily: "var(--font-mono)",
-            fontSize: "14px",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          &rsaquo;
+        <button onClick={goNext} aria-label="Next project" style={{ ...arrowStyle, right: "0.5rem" }}>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
         </button>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "7px",
-          marginTop: "14px",
-        }}
-      >
+      <div style={{ display: "flex", justifyContent: "center", gap: "0.6rem", marginTop: "1rem" }}>
         {projects.map((p, i) => (
           <button
             key={p.id}
             onClick={() => jumpTo(i)}
-            aria-label={`Go to ${p.name}`}
+            aria-label={"Go to " + p.name}
             style={{
-              width: "6px",
-              height: "6px",
+              width: "8px",
+              height: "8px",
               borderRadius: "50%",
               border: "none",
               padding: 0,
               cursor: "pointer",
-              background: activeIndex === i ? "var(--teal)" : "var(--border)",
-              transform: activeIndex === i ? "scale(1.4)" : "scale(1)",
+              background: activeIndex === i ? "var(--amber)" : "rgba(255,255,255,0.15)",
+              transform: activeIndex === i ? "scale(1.3)" : "scale(1)",
               transition: "background 0.2s ease, transform 0.2s ease",
             }}
           />

@@ -1,8 +1,11 @@
 export const profile = {
   name: "Calvin John Z. Crehencia",
+  shortName: "Calvin Crehencia",
   title: "Data Analyst / Full-Stack Developer",
   location: "Metro Manila, Philippines",
   email: "calvinjohn0604@gmail.com",
+  tagline:
+    "I build end-to-end analytics tools and AI-integrated systems, from raw dataset to dashboard — three shipped outside the classroom, including a live analytics engine and an AI-integrated trading platform.",
   summary:
     "BS Computer Science graduate who builds end-to-end analytics tools and AI-integrated systems, from raw dataset to dashboard. Beat 11 other teams for Best Thesis while carrying a full course load, then shipped three fully-built tools outside of class: a live analytics engine, a 20+ endpoint backend, and an AI-integrated trading platform.",
 };
@@ -15,21 +18,45 @@ export const stats = {
   ],
 };
 
-export const abilities = [
-  "Python",
-  "SQL",
-  "Pandas",
-  "NumPy",
-  "React",
-  "TypeScript",
-  "Flask",
-  "REST APIs",
-  "Supabase",
-  "PostgreSQL",
-  "Dart",
-  "Chart.js",
-  "Recharts",
-  "Git",
+export const skillGroups = [
+  {
+    label: "Languages",
+    group: "group-lang",
+    skills: [
+      { name: "Python", caption: "Built the Flask REST API powering Data Workbench's automated statistics engine." },
+      { name: "SQL", caption: "Ran SQL analysis on PASADA's operational fleet and ride datasets to validate system behavior." },
+      { name: "TypeScript", caption: "Typed TRADR's real-time trading engine and analytics layer." },
+      { name: "Dart", caption: "Built and maintain 20+ REST endpoints (Shelf) behind PopCulture's marketplace." },
+    ],
+  },
+  {
+    label: "Data & analysis",
+    group: "group-data",
+    skills: [
+      { name: "Pandas", caption: "Powers automated mean, median, SD, IQR and skewness generation in Data Workbench." },
+      { name: "NumPy", caption: "Handles the numerical computation behind Data Workbench's statistics pipeline." },
+    ],
+  },
+  {
+    label: "Frontend & visualization",
+    group: "group-front",
+    skills: [
+      { name: "React", caption: "Built TRADR's full trading UI — P&L charts, asset composition, and trade log." },
+      { name: "Chart.js", caption: "Built 4 interactive chart types in Data Workbench's frontend." },
+      { name: "Recharts", caption: "Visualizes TRADR's real-time P&L and asset-composition breakdown." },
+    ],
+  },
+  {
+    label: "Backend & infrastructure",
+    group: "group-back",
+    skills: [
+      { name: "Flask", caption: "Serves Data Workbench's REST API for on-demand dataset analysis." },
+      { name: "REST APIs", caption: "Designed 20+ endpoints backing PopCulture's inventory, orders, and payouts." },
+      { name: "Supabase", caption: "Schema, inventory tracking, and item pull-out logic for PopCulture." },
+      { name: "PostgreSQL", caption: "Parallelized RPC calls cutting reporting time for PopCulture's seller dashboards." },
+      { name: "Git", caption: "Version control across every shipped project." },
+    ],
+  },
 ];
 
 export const projects = [
@@ -54,6 +81,7 @@ export const projects = [
     role: "Solo developer — personal project",
     period: "2026",
     status: "live",
+    featured: true,
     stack: ["React 18", "TypeScript", "Groq API", "Recharts", "Zustand", "Vite"],
     summary:
       "A paper trading simulator with 6 AI agents that generate and justify independent buy/sell decisions.",
