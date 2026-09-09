@@ -54,6 +54,7 @@ export const projects = [
     role: "Solo developer — personal project",
     period: "2026",
     status: "live",
+    featured: true,
     stack: ["React 18", "TypeScript", "Groq API", "Recharts", "Zustand", "Vite"],
     summary:
       "A paper trading simulator with 6 AI agents that generate and justify independent buy/sell decisions.",
