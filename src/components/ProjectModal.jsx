@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { PROJ_COLOR, STATUS_COLOR } from "../data/statusColor";
+import { STATUS_COLOR } from "../data/statusColor";
+
 
 export default function ProjectModal({ project, onClose }) {
-  const accent = PROJ_COLOR[project.id] || "var(--teal)";
-  const statusColor = STATUS_COLOR[project.status] || accent;
+  const accent = STATUS_COLOR[project.status] || "var(--teal)";
 
   useEffect(() => {
     const onKey = (e) => {
@@ -21,12 +21,11 @@ export default function ProjectModal({ project, onClose }) {
       style={{
         position: "fixed",
         inset: 0,
-        background: "rgba(8,10,15,0.72)",
-        backdropFilter: "blur(3px)",
+        background: "rgba(10,14,18,0.75)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "2rem",
+        padding: "20px",
         zIndex: 100,
       }}
     >
@@ -34,103 +33,66 @@ export default function ProjectModal({ project, onClose }) {
         style={{
           background: "var(--panel)",
           border: "1px solid var(--border)",
-          borderRadius: "12px",
-          maxWidth: "460px",
+          borderLeft: `2px solid ${accent}`,
+          borderRadius: "0 8px 8px 0",
+          maxWidth: "440px",
           width: "100%",
-          maxHeight: "85vh",
+          maxHeight: "82vh",
           overflowY: "auto",
-          boxShadow: "0 30px 60px rgba(0,0,0,0.5)",
         }}
       >
         <div
           style={{
-            height: "110px",
-            background: "linear-gradient(135deg, " + accent + ", transparent)",
-            backgroundColor: "rgba(255,255,255,0.03)",
-            position: "relative",
             display: "flex",
-            alignItems: "flex-end",
-            padding: "1.1rem 1.4rem",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            padding: "16px 16px 0 16px",
           }}
         >
-          {project.featured && (
-            <span
-              style={{
-                position: "absolute",
-                top: "0.9rem",
-                right: "3.2rem",
-                fontFamily: "var(--font-sans)",
-                fontSize: "0.7rem",
-                background: accent,
-                color: "#0a0e12",
-                padding: "0.2rem 0.55rem",
-                borderRadius: "4px",
-                fontWeight: 600,
-              }}
-            >
-              Featured
-            </span>
-          )}
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "17px",
+              color: "var(--text)",
+            }}
+          >
+            {project.name}
+          </span>
           <button
             onClick={onClose}
             aria-label="Close"
             style={{
               all: "unset",
-              position: "absolute",
-              top: "0.8rem",
-              right: "0.8rem",
-              width: "32px",
-              height: "32px",
-              borderRadius: "50%",
-              background: "rgba(10,14,18,0.55)",
-              border: "1px solid var(--border)",
-              color: "var(--text)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
               cursor: "pointer",
-              boxSizing: "border-box",
+              fontFamily: "var(--font-mono)",
+              fontSize: "16px",
+              color: "var(--text-dim)",
+              lineHeight: 1,
+              padding: "2px 4px",
             }}
           >
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
+            &times;
           </button>
-          <p
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontWeight: 500,
-              fontSize: "1.5rem",
-              color: "var(--text)",
-              margin: 0,
-            }}
-          >
-            {project.name}
-          </p>
         </div>
 
-        <div style={{ padding: "1.3rem 1.4rem 1.5rem" }}>
-          <p
+        <div style={{ padding: "10px 16px 20px" }}>
+          <div
             style={{
-              fontFamily: "'Work Sans', sans-serif",
-              fontSize: "0.8rem",
-              color: statusColor,
-              margin: "0 0 0.9rem",
-              fontWeight: 500,
-              textTransform: "capitalize",
+              fontFamily: "var(--font-mono)",
+              fontSize: "11px",
+              color: accent,
+              marginBottom: "10px",
             }}
           >
             {project.status} &middot; {project.role} &middot; {project.period}
-          </p>
+          </div>
 
           <p
             style={{
-              fontFamily: "'Work Sans', sans-serif",
-              fontSize: "0.95rem",
+              fontSize: "14px",
               lineHeight: 1.6,
               color: "var(--text)",
-              margin: "0 0 1.2rem",
+              margin: "0 0 14px",
             }}
           >
             {project.summary}
@@ -139,29 +101,25 @@ export default function ProjectModal({ project, onClose }) {
           <p
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "0.78rem",
-              textTransform: "uppercase",
-              letterSpacing: "0.04em",
+              fontSize: "11px",
               color: "var(--text-dim)",
-              margin: "0 0 0.7rem",
+              margin: "0 0 8px",
+              letterSpacing: "0.02em",
             }}
           >
-            Highlights
+            highlights
           </p>
-          <ul style={{ listStyle: "none", margin: "0 0 1.3rem", padding: 0, display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+          <ul style={{ margin: "0 0 16px", paddingLeft: "18px" }}>
             {project.details.map((d, i) => (
-              <li key={i} style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "0.9rem", lineHeight: 1.5, color: "var(--text)", paddingLeft: "1rem", position: "relative" }}>
-                <span
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    top: "0.55em",
-                    width: "5px",
-                    height: "5px",
-                    borderRadius: "50%",
-                    background: accent,
-                  }}
-                />
+              <li
+                key={i}
+                style={{
+                  fontSize: "13px",
+                  lineHeight: 1.6,
+                  color: "var(--text-dim)",
+                  marginBottom: "6px",
+                }}
+              >
                 {d}
               </li>
             ))}
@@ -170,26 +128,25 @@ export default function ProjectModal({ project, onClose }) {
           <p
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "0.78rem",
-              textTransform: "uppercase",
-              letterSpacing: "0.04em",
+              fontSize: "11px",
               color: "var(--text-dim)",
-              margin: "0 0 0.7rem",
+              margin: "0 0 8px",
+              letterSpacing: "0.02em",
             }}
           >
-            Stack
+            stack
           </p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
             {project.stack.map((t) => (
               <span
                 key={t}
                 style={{
-                  fontFamily: "'Work Sans', sans-serif",
-                  fontSize: "0.78rem",
-                  color: "var(--text-dim)",
-                  background: "rgba(255,255,255,0.05)",
-                  padding: "0.25rem 0.55rem",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "11px",
+                  color: "var(--teal)",
+                  border: "1px solid var(--border)",
                   borderRadius: "4px",
+                  padding: "2px 7px",
                 }}
               >
                 {t}
