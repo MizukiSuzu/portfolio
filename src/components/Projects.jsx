@@ -1,5 +1,4 @@
-import { projects } from "../data/resume";
-import ProjectCard from "./ProjectCard";
+import ProjectCarousel from "./ProjectCarousel";
 
 export default function Projects() {
   return (
@@ -14,9 +13,7 @@ export default function Projects() {
       >
         &gt; ls projects/
       </div>
-      {projects.map((project) => (
-        <ProjectCard key={project.id} project={project} />
-      ))}
+      <ProjectCarousel />
     </section>
   );
 }
