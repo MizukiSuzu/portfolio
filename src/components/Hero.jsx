@@ -1,6 +1,12 @@
 import { profile, stats } from "../data/resume";
 
 export default function Hero() {
+  const links = [
+    ["GitHub", profile.github],
+    ["LinkedIn", profile.linkedin],
+    ["Resume (PDF)", profile.resume],
+  ].filter(([, href]) => href);
+
   return (
     <section className="hero">
       <div className="hero-content">
@@ -14,6 +20,15 @@ export default function Hero() {
         <div className="hero-meta">
           <a href={`mailto:${profile.email}`}>{profile.email}</a>
           <span>{profile.location}</span>
+          {links.length > 0 && (
+            <div className="hero-links">
+              {links.map(([label, href]) => (
+                <a key={label} href={href} target="_blank" rel="noreferrer">
+                  {label}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

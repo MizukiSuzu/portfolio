@@ -154,6 +154,13 @@ export default function ProjectCarousel() {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowLeft") goPrev();
+    else if (e.key === "ArrowRight") goNext();
+    else return;
+    e.preventDefault();
+  };
+
   const arrowStyle = {
     position: "absolute",
     top: "50%",
@@ -174,6 +181,10 @@ export default function ProjectCarousel() {
   return (
     <div style={{ marginTop: "8px" }}>
       <div
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Projects"
+        onKeyDown={handleKeyDown}
         style={{
           position: "relative",
           height: "420px",
@@ -195,12 +206,22 @@ export default function ProjectCarousel() {
             const accent = PROJ_COLOR[p.id] || "var(--teal)";
             const statusColor = STATUS_COLOR[p.status] || accent;
             const isCenter = activeIndex === i;
+            const reachable = Math.abs(circularOffset(i, activeIndex, n)) <= 2;
 
             return (
               <div
                 key={p.id}
                 ref={(el) => (cardRefs.current[i] = el)}
+                role="button"
+                tabIndex={reachable ? 0 : -1}
+                aria-label={isCenter ? "Open " + p.name + " details" : "Show " + p.name}
                 onClick={() => handleCardClick(i)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleCardClick(i);
+                  }
+                }}
                 style={{
                   "--accent": accent,
                   position: "absolute",

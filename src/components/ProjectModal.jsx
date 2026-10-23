@@ -1,47 +1,39 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { PROJ_COLOR, STATUS_COLOR } from "../data/statusColor";
 
 export default function ProjectModal({ project, onClose }) {
   const accent = PROJ_COLOR[project.id] || "var(--teal)";
   const statusColor = STATUS_COLOR[project.status] || accent;
 
+  const dialogRef = useRef(null);
+  const links = [
+    ["Live demo", project.links?.live],
+    ["Source", project.links?.source],
+  ].filter(([, href]) => href);
+
+  // Native <dialog> traps focus, handles Escape, and makes the page behind it inert.
   useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "Escape") onClose();
+    const dialog = dialogRef.current;
+    const opener = document.activeElement;
+    if (!dialog.open) dialog.showModal();
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+      opener?.focus();
     };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  }, []);
 
   return (
-    <div
+    <dialog
+      ref={dialogRef}
+      className="project-modal"
+      aria-labelledby="project-modal-title"
+      onClose={onClose}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
-      style={{
-        position: "fixed",
-        inset: 0,
-        background: "rgba(8,10,15,0.72)",
-        backdropFilter: "blur(3px)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "2rem",
-        zIndex: 100,
-      }}
     >
-      <div
-        style={{
-          background: "var(--panel)",
-          border: "1px solid var(--border)",
-          borderRadius: "12px",
-          maxWidth: "460px",
-          width: "100%",
-          maxHeight: "85vh",
-          overflowY: "auto",
-          boxShadow: "0 30px 60px rgba(0,0,0,0.5)",
-        }}
-      >
+      <div>
         <div
           style={{
             height: "110px",
@@ -97,7 +89,8 @@ export default function ProjectModal({ project, onClose }) {
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
           </button>
-          <p
+          <h2
+            id="project-modal-title"
             style={{
               fontFamily: "'Fraunces', serif",
               fontWeight: 500,
@@ -107,7 +100,7 @@ export default function ProjectModal({ project, onClose }) {
             }}
           >
             {project.name}
-          </p>
+          </h2>
         </div>
 
         <div style={{ padding: "1.3rem 1.4rem 1.5rem" }}>
@@ -135,6 +128,16 @@ export default function ProjectModal({ project, onClose }) {
           >
             {project.summary}
           </p>
+
+          {links.length > 0 && (
+            <div style={{ display: "flex", gap: "1.2rem", margin: "0 0 1.3rem" }}>
+              {links.map(([label, href]) => (
+                <a key={label} href={href} target="_blank" rel="noreferrer" style={{ fontSize: "0.9rem" }}>
+                  {label} &#8599;
+                </a>
+              ))}
+            </div>
+          )}
 
           <p
             style={{
@@ -198,6 +201,6 @@ export default function ProjectModal({ project, onClose }) {
           </div>
         </div>
       </div>
-    </div>
+    </dialog>
   );
 }

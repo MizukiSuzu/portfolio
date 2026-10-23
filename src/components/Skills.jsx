@@ -15,19 +15,20 @@ export default function Skills() {
             {group.skills.map((skill) => {
               const chipId = group.label + ":" + skill.name;
               return (
-                <div
+                <button
+                  type="button"
                   key={skill.name}
                   className={
                     "skill-chip " + group.group + (activeChip === chipId ? " active" : "")
                   }
-                  tabIndex={0}
+                  aria-expanded={activeChip === chipId}
                   onClick={() =>
                     setActiveChip(activeChip === chipId ? null : chipId)
                   }
                 >
                   {skill.name}
-                  <div className="caption">{skill.caption}</div>
-                </div>
+                  <span className="caption">{skill.caption}</span>
+                </button>
               );
             })}
           </div>

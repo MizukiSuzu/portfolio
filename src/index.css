@@ -118,6 +118,18 @@ a:hover {
   align-self: flex-start;
 }
 
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 0.4rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
 .hero-graphic {
   position: relative;
   height: 340px;
@@ -260,8 +272,10 @@ a:hover {
   color: var(--text);
   padding: 0.5rem 0.95rem;
   border-radius: 5px;
+  font: inherit;
   font-size: 0.92rem;
-  cursor: default;
+  text-align: left;
+  cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -286,6 +300,7 @@ a:hover {
 }
 
 .skill-chip:hover .caption,
+.skill-chip:focus-visible .caption,
 .skill-chip.active .caption {
   opacity: 1;
   transform: translateY(0);
@@ -293,6 +308,7 @@ a:hover {
 }
 
 .skill-chip:hover,
+.skill-chip:focus-visible,
 .skill-chip.active {
   background: #1b222d;
 }
@@ -307,6 +323,26 @@ a:hover {
   font-size: 0.92rem;
   color: var(--text-dim);
   font-style: italic;
+}
+
+/* ---------- Project modal ---------- */
+
+.project-modal {
+  padding: 0;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  width: calc(100% - 4rem);
+  max-width: 460px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.project-modal::backdrop {
+  background: rgba(8, 10, 15, 0.72);
+  backdrop-filter: blur(3px);
 }
 
 /* ---------- Responsive ---------- */

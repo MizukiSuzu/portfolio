@@ -1,6 +1,6 @@
 # Calvin Crehencia — Portfolio
 
-A React + Vite portfolio site with a terminal/HUD design theme.
+A React + Vite portfolio site with a dark editorial theme.
 
 ## Getting started
 
@@ -27,14 +27,18 @@ All resume/project content lives in `src/data/resume.js` — edit that file to u
 
 ```
 src/
-  data/resume.js        content: profile, stats, skills, projects
+  data/resume.js         content: profile, links, stats, skills, projects
+  data/statusColor.js    per-project accent and status colors
   components/
-    Hero.jsx             terminal boot-sequence intro
-    StatPanel.jsx         GWA / awards HUD panel
-    AbilityBar.jsx        skills as tags
-    Projects.jsx           project list
-    ProjectCard.jsx        expandable project card
+    Hero.jsx             intro, contact, GitHub/LinkedIn/resume links
+    Honors.jsx           GWA and awards
+    Skills.jsx           skill chips with captions
+    Projects.jsx         projects section
+    ProjectCarousel.jsx  3D project carousel (arrow keys work)
+    ProjectModal.jsx     project detail dialog
     Footer.jsx
   App.jsx
-  index.css              design tokens (colors, fonts)
+  index.css              design tokens and styles
 ```
+
+Set `github`, `linkedin` and `resume` in `profile`, and `links.live` / `links.source` per project. Empty values are hidden. Put your resume PDF in `public/` and set `resume: "/resume.pdf"`.

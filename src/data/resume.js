@@ -4,6 +4,10 @@ export const profile = {
   title: "Data Analyst / Full-Stack Developer",
   location: "Metro Manila, Philippines",
   email: "calvinjohn0604@gmail.com",
+  // Leave a link empty to hide it. Put the resume PDF in public/ and set resume: "/resume.pdf".
+  github: "https://github.com/MizukiSuzu",
+  linkedin: "https://www.linkedin.com/in/calvin-john-crehencia-515876237/",
+  resume: "/Calvin_Crehencia_Resume.pdf",
   tagline:
     "I build end-to-end analytics tools and AI-integrated systems, from raw dataset to dashboard — three shipped outside the classroom, including a live analytics engine and an AI-integrated trading platform.",
   summary:
@@ -11,7 +15,6 @@ export const profile = {
 };
 
 export const stats = {
-  rank: "1.57 GWA",
   achievements: [
     "Best Thesis — ICTE Symposium, 1st of 12 groups",
     "Best Methods of Research Project — ICTE Symposium",
@@ -66,6 +69,7 @@ export const projects = [
     role: "Solo developer — personal project",
     period: "2026",
     status: "live",
+    links: { live: "https://data-workbench-iota.vercel.app", source: "https://github.com/MizukiSuzu/data-workbench" },
     stack: ["Python", "Flask", "Pandas", "NumPy", "JavaScript", "Chart.js"],
     summary:
       "A full-stack data analysis web app that automates descriptive statistics for any uploaded dataset.",
@@ -81,6 +85,7 @@ export const projects = [
     role: "Solo developer — personal project",
     period: "2026",
     status: "live",
+    links: { live: "https://tradr-ashy.vercel.app", source: "https://github.com/MizukiSuzu/tradr" },
     featured: true,
     stack: ["React 18", "TypeScript", "Groq API", "Recharts", "Zustand", "Vite"],
     summary:
@@ -98,6 +103,7 @@ export const projects = [
     role: "Backend developer",
     period: "Feb 2026 — Present",
     status: "active",
+    links: { live: "", source: "" },
     stack: ["Dart (Shelf)", "Supabase", "PostgreSQL", "Flutter"],
     summary:
       "A consignment marketplace and admin platform with 20+ REST API endpoints backing inventory and payouts.",
@@ -114,6 +120,7 @@ export const projects = [
     role: "Data analyst",
     period: "Dec 2024 — Nov 2025",
     status: "shipped",
+    links: { live: "", source: "" },
     stack: ["SQL", "Excel"],
     summary:
       "Ride-hailing and fleet management ecosystem — thesis project that won Best Thesis campus-wide.",
@@ -130,6 +137,7 @@ export const projects = [
     role: "Personal analytics portfolio",
     period: "2025 — Present",
     status: "active",
+    links: { live: "", source: "" },
     stack: ["Python", "Pandas", "Statistics"],
     summary:
       "A self-sourced dataset tracking performance metrics across Dota 2 and League of Legends.",
