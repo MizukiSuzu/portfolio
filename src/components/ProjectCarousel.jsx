@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { projects } from "../data/resume";
 import { PROJ_COLOR, STATUS_COLOR } from "../data/statusColor";
 import ProjectModal from "./ProjectModal";
+import MiniChart from "./MiniChart";
 
 const OPACITY_THRESHOLD = 0.05; // fade curve is front-loaded, so "invisible" arrives well before transition end
 const CARD_TRANSITION =
@@ -237,15 +238,27 @@ export default function ProjectCarousel() {
               >
                 <div
                   style={{
-                    height: "84px",
-                    background: "linear-gradient(135deg, " + accent + ", transparent)",
+                    height: "110px",
+                    background: "linear-gradient(160deg, color-mix(in srgb, " + accent + " 22%, transparent), transparent 70%)",
                     backgroundColor: "rgba(255,255,255,0.03)",
                     position: "relative",
                     display: "flex",
-                    alignItems: "flex-end",
-                    padding: "0.85rem 1rem",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    padding: "0.75rem 1rem 0.85rem",
                   }}
                 >
+                  <MiniChart type={p.chart} color={accent} />
+                  <span
+                    style={{
+                      position: "relative",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.68rem",
+                      color: accent,
+                    }}
+                  >
+                    {p.metric}
+                  </span>
                   {p.featured && (
                     <span
                       style={{
@@ -266,6 +279,8 @@ export default function ProjectCarousel() {
                   )}
                   <p
                     style={{
+                      position: "relative",
+                      textShadow: "0 1px 8px rgba(10,14,18,0.9)",
                       fontFamily: "'Fraunces', serif",
                       fontWeight: 500,
                       fontSize: "1.1rem",

@@ -5,7 +5,8 @@ export default function Skills() {
   const [activeChip, setActiveChip] = useState(null);
 
   return (
-    <section className="skills section-divider">
+    <section className="skills section-divider reveal" id="skills">
+      <p className="section-label"><span>02</span> / Skills</p>
       <h2 className="skills-heading">What I build with</h2>
 
       {skillGroups.map((group) => (

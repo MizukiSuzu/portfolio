@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { PROJ_COLOR, STATUS_COLOR } from "../data/statusColor";
+import MiniChart from "./MiniChart";
 
 export default function ProjectModal({ project, onClose }) {
   const accent = PROJ_COLOR[project.id] || "var(--teal)";
@@ -37,7 +38,7 @@ export default function ProjectModal({ project, onClose }) {
         <div
           style={{
             height: "110px",
-            background: "linear-gradient(135deg, " + accent + ", transparent)",
+            background: "linear-gradient(160deg, color-mix(in srgb, " + accent + " 22%, transparent), transparent 70%)",
             backgroundColor: "rgba(255,255,255,0.03)",
             position: "relative",
             display: "flex",
@@ -49,6 +50,7 @@ export default function ProjectModal({ project, onClose }) {
             <span
               style={{
                 position: "absolute",
+                zIndex: 1,
                 top: "0.9rem",
                 right: "3.2rem",
                 fontFamily: "var(--font-sans)",
@@ -69,6 +71,7 @@ export default function ProjectModal({ project, onClose }) {
             style={{
               all: "unset",
               position: "absolute",
+              zIndex: 1,
               top: "0.8rem",
               right: "0.8rem",
               width: "32px",
@@ -89,9 +92,12 @@ export default function ProjectModal({ project, onClose }) {
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
           </button>
+          <MiniChart type={project.chart} color={accent} />
           <h2
             id="project-modal-title"
             style={{
+              position: "relative",
+              textShadow: "0 1px 8px rgba(10,14,18,0.9)",
               fontFamily: "'Fraunces', serif",
               fontWeight: 500,
               fontSize: "1.5rem",

@@ -10,7 +10,8 @@
   --green: #5fa8a0;
   --font-serif: "Fraunces", serif;
   --font-sans: "Work Sans", sans-serif;
-  --font-mono: var(--font-sans);
+  --font-mono: "JetBrains Mono", monospace;
+  --grid: rgba(255, 255, 255, 0.025);
 }
 
 * {
@@ -21,10 +22,25 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: var(--bg);
+  background:
+    radial-gradient(60rem 36rem at 75% -8%, rgba(232, 163, 61, 0.1), transparent 60%),
+    radial-gradient(40rem 30rem at 0% 30%, rgba(95, 168, 160, 0.06), transparent 60%),
+    linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 40px 40px,
+    var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+}
+
+/* Only the root gets the background, so the fixed background layer (z-index: -1) can paint above it. */
+body {
+  background: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
 }
 
 #root {
@@ -61,8 +77,8 @@ a:hover {
   grid-template-columns: 1.1fr 0.9fr;
   align-items: center;
   gap: 3rem;
-  padding: 6rem 0;
-  min-height: 100vh;
+  padding: 4rem 0 5rem;
+  min-height: calc(100vh - 64px);
 }
 
 .hero-content {
@@ -130,14 +146,161 @@ a:hover {
   outline-offset: 3px;
 }
 
-.hero-graphic {
-  position: relative;
-  height: 340px;
+/* ---------- Top bar ---------- */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 64px;
+  margin: 0 -32px;
+  padding: 0 32px;
+  /* paints the bar edge to edge although it sits inside the 1100px column */
+  border-image: linear-gradient(rgba(16, 20, 28, 0.78) 0 0) fill 0 / / 0 100vmax;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 0 var(--border);
 }
 
-.hero-graphic svg {
+.topbar a {
+  border-bottom: none;
+}
+
+.topbar-name {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.topbar-name span {
+  color: var(--amber);
+}
+
+.topbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  font-size: 0.9rem;
+}
+
+.topbar-nav a:not(.topbar-cta) {
+  color: var(--text-dim);
+}
+
+.topbar-nav a:not(.topbar-cta):hover {
+  color: var(--text);
+}
+
+.topbar-cta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--bg);
+  background: var(--amber);
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+}
+
+.topbar-cta:hover {
+  color: var(--bg);
+  background: #f0b65c;
+}
+
+/* ---------- Hero KPIs ---------- */
+
+.kpis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 0 0 1.8rem;
+}
+
+.kpis div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.kpis dt {
+  order: 2;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.kpis dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Hero dashboard ---------- */
+
+.dash {
+  background: rgba(23, 29, 40, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(232, 163, 61, 0.06);
+  overflow: hidden;
+}
+
+.dash-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.dash-bar i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.dash-bar span {
+  margin-left: 0.5rem;
+}
+
+.dash-live {
+  margin-left: auto !important;
+  color: var(--teal);
+}
+
+.dash svg {
+  display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
+}
+
+.axis-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--text-dim);
+}
+
+.chart-note {
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out forwards 2s;
+}
+
+.chart-note rect {
+  fill: #1e2530;
+  stroke: rgba(232, 163, 61, 0.5);
+}
+
+.chart-note text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--text);
 }
 
 .chart-line {
@@ -182,51 +345,70 @@ a:hover {
   to { opacity: 1; }
 }
 
+/* ---------- Section labels ---------- */
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin: 0 0 0.6rem;
+}
+
+.section-label span {
+  color: var(--amber);
+}
+
 /* ---------- Honors ---------- */
 
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.tile {
+  background: rgba(23, 29, 40, 0.8);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.2rem 1.3rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.tile:hover {
+  border-color: rgba(232, 163, 61, 0.4);
+  transform: translateY(-2px);
+}
+
+.tile-value {
+  font-family: var(--font-mono);
+  font-size: 1.9rem;
+  font-weight: 500;
+  color: var(--amber);
+  margin: 0 0 0.35rem;
+}
+
+.tile-label {
+  font-weight: 500;
+  margin: 0 0 0.25rem;
+}
+
+.tile-detail {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin: 0;
+}
+
 .honors {
-  padding: 0 0 4rem 0;
+  padding: 0 0 4.5rem 0;
 }
 
-.honors-inner {
-  max-width: 480px;
-}
-
-.gwa {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  margin-bottom: 1.1rem;
-}
-
-.gwa-number {
+.honors h2 {
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: 2.4rem;
-  color: var(--amber);
-  line-height: 1;
-}
-
-.gwa-label {
-  font-size: 0.98rem;
-  color: var(--text-dim);
-}
-
-.honors-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.honors-list p {
-  margin: 0;
-  font-size: 0.98rem;
-  line-height: 1.5;
-  color: var(--text);
-}
-
-.honors-list span {
-  color: var(--text-dim);
+  font-size: 1.6rem;
+  margin: 0 0 1.6rem;
 }
 
 /* ---------- Skills ---------- */
@@ -345,6 +527,34 @@ a:hover {
   backdrop-filter: blur(3px);
 }
 
+/* ---------- Background ---------- */
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ---------- Scroll reveal ---------- */
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+}
+
 /* ---------- Responsive ---------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -353,7 +563,7 @@ a:hover {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .chart-line, .chart-fill, .chart-dot {
+  .chart-line, .chart-fill, .chart-dot, .chart-note {
     opacity: 1;
     stroke-dashoffset: 0;
   }
@@ -365,9 +575,7 @@ a:hover {
     padding: 4rem 0;
   }
   .hero-name { font-size: 2.3rem; }
-  .hero-graphic { height: 220px; order: -1; }
   .hero-content { max-width: 100%; }
-  .honors-inner { max-width: 100%; }
   .skill-chip .caption { max-width: 220px; }
 }
 
@@ -375,4 +583,13 @@ a:hover {
   #root {
     padding: 0 20px 60px;
   }
+  .topbar {
+    margin: 0 -20px;
+    padding: 0 20px;
+  }
+  .topbar-nav a:not(.topbar-cta) {
+    display: none;
+  }
+  .kpis { gap: 1.4rem; }
+  .kpis dd { font-size: 1.4rem; }
 }

@@ -9,15 +9,21 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/calvin-john-crehencia-515876237/",
   resume: "/Calvin_Crehencia_Resume.pdf",
   tagline:
-    "I build end-to-end analytics tools and AI-integrated systems, from raw dataset to dashboard — three shipped outside the classroom, including a live analytics engine and an AI-integrated trading platform.",
+    "I build end-to-end analytics tools and AI-integrated systems, from raw dataset to dashboard — three shipped outside the classroom, including a live analytics engine and a statistical stock-forecasting app.",
   summary:
-    "BS Computer Science graduate who builds end-to-end analytics tools and AI-integrated systems, from raw dataset to dashboard. Beat 11 other teams for Best Thesis while carrying a full course load, then shipped three fully-built tools outside of class: a live analytics engine, a 20+ endpoint backend, and an AI-integrated trading platform.",
+    "BS Computer Science graduate who builds end-to-end analytics tools and AI-integrated systems, from raw dataset to dashboard. Beat 11 other teams for Best Thesis while carrying a full course load, then shipped three fully-built tools outside of class: a live analytics engine, a 20+ endpoint backend, and a statistical stock-forecasting app.",
 };
 
 export const stats = {
-  achievements: [
-    "Best Thesis — ICTE Symposium, 1st of 12 groups",
-    "Best Methods of Research Project — ICTE Symposium",
+  kpis: [
+    { value: 1.57, decimals: 2, label: "GWA" },
+    { value: 20, suffix: "+", label: "API endpoints" },
+    { value: 5, label: "projects" },
+  ],
+  tiles: [
+    { value: "1.57", label: "GWA", detail: "BS Computer Science, STI College Caloocan" },
+    { value: "#1 of 12", label: "Best Thesis", detail: "Campus ICTE Symposium, AY 2024–2025" },
+    { value: "2", label: "Symposium awards", detail: "Best Thesis and Best Methods of Research" },
   ],
 };
 
@@ -28,7 +34,7 @@ export const skillGroups = [
     skills: [
       { name: "Python", caption: "Built the Flask REST API powering Data Workbench's automated statistics engine." },
       { name: "SQL", caption: "Ran SQL analysis on PASADA's operational fleet and ride datasets to validate system behavior." },
-      { name: "TypeScript", caption: "Typed TRADR's real-time trading engine and analytics layer." },
+      { name: "TypeScript", caption: "Wrote TRADR's Monte Carlo forecast engine, signals and backtest in TypeScript." },
       { name: "Dart", caption: "Built and maintain 20+ REST endpoints (Shelf) behind PopCulture's marketplace." },
     ],
   },
@@ -44,9 +50,9 @@ export const skillGroups = [
     label: "Frontend & visualization",
     group: "group-front",
     skills: [
-      { name: "React", caption: "Built TRADR's full trading UI — P&L charts, asset composition, and trade log." },
+      { name: "React", caption: "Built TRADR's UI — ticker search, watchlist, stock forecast page and prediction game." },
       { name: "Chart.js", caption: "Built 4 interactive chart types in Data Workbench's frontend." },
-      { name: "Recharts", caption: "Visualizes TRADR's real-time P&L and asset-composition breakdown." },
+      { name: "Recharts", caption: "Draws TRADR's price charts, forecast cones and backtest chart." },
     ],
   },
   {
@@ -65,6 +71,8 @@ export const skillGroups = [
 export const projects = [
   {
     id: "data-workbench",
+    chart: "histogram",
+    metric: "12 cleaning actions",
     name: "Data Workbench",
     role: "Solo developer — personal project",
     period: "2026",
@@ -81,24 +89,29 @@ export const projects = [
   },
   {
     id: "tradr",
+    chart: "cone",
+    metric: "5,000 simulated paths",
     name: "TRADR",
     role: "Solo developer — personal project",
     period: "2026",
     status: "live",
     links: { live: "https://tradr-ashy.vercel.app", source: "https://github.com/MizukiSuzu/tradr" },
     featured: true,
-    stack: ["React 18", "TypeScript", "Groq API", "Recharts", "Zustand", "Vite"],
+    stack: ["React 18", "TypeScript", "Recharts", "Zustand", "Twelve Data API", "Groq API", "Vercel"],
     summary:
-      "A paper trading simulator with 6 AI agents that generate and justify independent buy/sell decisions.",
+      "A stock forecasting app and prediction game: see where any US stock is statistically likely to go, then call Up or Down.",
     details: [
-      "Normalized live market data for 25+ assets into a unified pricing model with 24h change and market cap, powering a real-time P&L and asset-composition analytics layer.",
-      "Designed the analytics layer — P&L charts, asset composition breakdown, and a timestamped trade log — visualized via Recharts, with state managed through Zustand.",
-      "Integrated 6 AI trading agents via the Groq API, each with a distinct strategy, generating and justifying independent buy/sell decisions and automating strategy analysis that would otherwise require manual review of each trade.",
-      "Built limit orders and automated price alerts into the full buy/sell portfolio engine.",
+      "Built a block-bootstrap Monte Carlo forecast engine in TypeScript (5,000 simulated paths from a year of daily returns) that shows 68% and 95% price ranges for any US stock or ETF.",
+      "Added trend, momentum, RSI(14) and volatility-regime signals, each explained in one sentence, so the forecast is readable without a finance background.",
+      "Validated the forecasts with a 12-month walk-forward backtest that builds each past forecast only from data available on that date and checks where the actual price landed.",
+      "Turned the forecasts into an Up/Down prediction game that pays more for calls the model rated unlikely, with Replay rounds on hidden past data and Live calls that resolve later.",
+      "Kept market-data and AI API keys server-side behind Vercel functions with CDN caching; a Groq-powered analyst chat explains the numbers on screen.",
     ],
   },
   {
     id: "popculture",
+    chart: "bars",
+    metric: "20+ API endpoints",
     name: "PopCulture",
     role: "Backend developer",
     period: "Feb 2026 — Present",
@@ -116,6 +129,8 @@ export const projects = [
   },
   {
     id: "pasada",
+    chart: "line",
+    metric: "1st of 12 thesis groups",
     name: "PASADA",
     role: "Data analyst",
     period: "Dec 2024 — Nov 2025",
@@ -133,6 +148,8 @@ export const projects = [
   },
   {
     id: "esports-analytics",
+    chart: "scatter",
+    metric: "2 competitive titles",
     name: "Esports Performance Data",
     role: "Personal analytics portfolio",
     period: "2025 — Present",
