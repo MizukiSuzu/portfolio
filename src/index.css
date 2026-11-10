@@ -381,6 +381,25 @@ a:hover {
   transform: translateY(-2px);
 }
 
+.tile-link {
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tile-more {
+  display: block;
+  margin-top: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--teal);
+}
+
+.tile-link:hover .tile-more {
+  color: var(--amber);
+}
+
 .tile-value {
   font-family: var(--font-mono);
   font-size: 1.9rem;

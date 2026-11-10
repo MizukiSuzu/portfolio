@@ -22,8 +22,8 @@ export const stats = {
   ],
   tiles: [
     { value: "1.57", label: "GWA", detail: "BS Computer Science, STI College Caloocan" },
-    { value: "#1 of 12", label: "Best Thesis", detail: "Campus ICTE Symposium, AY 2024–2025" },
-    { value: "2", label: "Symposium awards", detail: "Best Thesis and Best Methods of Research" },
+    { value: "#1 of 12", label: "Best Thesis", detail: "Campus ICTE Symposium, AY 2024–2025", project: "pasada" },
+    { value: "2", label: "Symposium awards", detail: "Best Thesis and Best Methods of Research", project: "pasada" },
   ],
 };
 
@@ -35,14 +35,14 @@ export const skillGroups = [
       { name: "Python", caption: "Built the Flask REST API powering Data Workbench's automated statistics engine." },
       { name: "SQL", caption: "Ran SQL analysis on PASADA's operational fleet and ride datasets to validate system behavior." },
       { name: "TypeScript", caption: "Wrote TRADR's Monte Carlo forecast engine, signals and backtest in TypeScript." },
-      { name: "Dart", caption: "Built and maintain 20+ REST endpoints (Shelf) behind PopCulture's marketplace." },
+      { name: "Dart", caption: "Built 20+ REST endpoints (Shelf) behind PopCulture's marketplace during my OJT." },
     ],
   },
   {
     label: "Data & analysis",
     group: "group-data",
     skills: [
-      { name: "Pandas", caption: "Powers automated mean, median, SD, IQR and skewness generation in Data Workbench." },
+      { name: "Pandas", caption: "Powers Data Workbench's statistics, cleaning actions and column ranking." },
       { name: "NumPy", caption: "Handles the numerical computation behind Data Workbench's statistics pipeline." },
     ],
   },
@@ -51,7 +51,7 @@ export const skillGroups = [
     group: "group-front",
     skills: [
       { name: "React", caption: "Built TRADR's UI — ticker search, watchlist, stock forecast page and prediction game." },
-      { name: "Chart.js", caption: "Built 4 interactive chart types in Data Workbench's frontend." },
+      { name: "Chart.js", caption: "Built 5 chart views in Data Workbench, including a correlation heatmap." },
       { name: "Recharts", caption: "Draws TRADR's price charts, forecast cones and backtest chart." },
     ],
   },
@@ -78,13 +78,15 @@ export const projects = [
     period: "2026",
     status: "live",
     links: { live: "https://data-workbench-iota.vercel.app", source: "https://github.com/MizukiSuzu/data-workbench" },
-    stack: ["Python", "Flask", "Pandas", "NumPy", "JavaScript", "Chart.js"],
+    stack: ["Python", "Flask", "Pandas", "NumPy", "JavaScript", "Chart.js", "Tailwind CSS"],
     summary:
-      "A full-stack data analysis web app that automates descriptive statistics for any uploaded dataset.",
+      "A full-stack data analysis web app: load a table from CSV, JSON, Excel, Word or PDF, then explore, clean, rank and chart it.",
     details: [
-      "Automated descriptive statistics generation — mean, median, standard deviation, IQR, skewness — for any uploaded CSV/JSON dataset by building a Flask/Pandas/NumPy REST API, eliminating manual EDA calculation.",
-      "Built data cleaning tools (null imputation, duplicate removal) to prepare messy datasets for analysis without manual pre-processing.",
-      "Built 4 interactive chart types (histogram, scatter, and 2 others) in a Chart.js frontend to make relationships in the data visible without writing custom plotting code.",
+      "Built a Flask/Pandas REST API that turns an uploaded dataset into per-column statistics (mean, median, SD, missing and unique counts, IQR-rule outliers) and a correlation matrix, replacing manual EDA calculation.",
+      "Reads tables from CSV, JSON, Excel, Word and PDF files, and exports the cleaned result as CSV or Excel.",
+      "Built 12 data-cleaning actions with suggestions, undo and a change log: null imputation, duplicate and outlier removal, whitespace trimming and type conversion.",
+      "Added column ranking that scores how related each column is to a chosen goal, picking Pearson correlation, correlation ratio or Cramér's V by column type.",
+      "Built 5 Chart.js views, including a correlation heatmap and missing-values chart, plus an interactive beginner guide that explains every statistic in plain English.",
     ],
   },
   {
@@ -113,18 +115,18 @@ export const projects = [
     chart: "bars",
     metric: "20+ API endpoints",
     name: "PopCulture",
-    role: "Backend developer",
-    period: "Feb 2026 — Present",
-    status: "active",
+    role: "Full-stack developer — OJT",
+    period: "Feb — May 2026",
+    status: "shipped",
     links: { live: "", source: "" },
     stack: ["Dart (Shelf)", "Supabase", "PostgreSQL", "Flutter"],
     summary:
       "A consignment marketplace and admin platform with 20+ REST API endpoints backing inventory and payouts.",
     details: [
-      "Built and maintain 20+ REST API endpoints (Dart/Shelf) backing inventory, order fulfillment, seller ledgers, and payout workflows on Supabase/PostgreSQL.",
+      "Built 20+ REST API endpoints (Dart/Shelf) backing inventory, order fulfillment, seller ledgers, and payout workflows on Supabase/PostgreSQL.",
       "Designed analytics endpoints aggregating sales trends and top-selling items via parallelized Postgres RPC calls, cutting reporting time for seller and admin dashboards.",
       "Designed the database schema in Supabase/PostgreSQL and implemented inventory tracking and item pull-out functions.",
-      "Assisted in frontend integration using Flutter, ensuring backend logic aligned with application requirements.",
+      "Helped integrate the Flutter app with the backend, ensuring backend logic aligned with application requirements.",
     ],
   },
   {
